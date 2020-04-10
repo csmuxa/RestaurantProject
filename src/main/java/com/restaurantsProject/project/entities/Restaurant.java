@@ -37,7 +37,7 @@ public class Restaurant {
     @Column
     private String phone;
 
-    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Food> menu;
 
 
