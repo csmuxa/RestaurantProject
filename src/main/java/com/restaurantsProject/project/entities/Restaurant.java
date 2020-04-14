@@ -1,5 +1,6 @@
 package com.restaurantsProject.project.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,6 +38,7 @@ public class Restaurant {
     @Column
     private String phone;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Food> menu;
 

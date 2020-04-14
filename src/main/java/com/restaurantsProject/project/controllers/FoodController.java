@@ -34,15 +34,6 @@ public class FoodController {
         return food;
     }
 
-
-    @GetMapping
-    public List<Food> getAllFoods() {
-        List<Food> allFoods = foodService.getAllFoods();
-
-        return allFoods;
-    }
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteFood(@PathVariable("id") long id) {
         foodService.deleteFood(id);

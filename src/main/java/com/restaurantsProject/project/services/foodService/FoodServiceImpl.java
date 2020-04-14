@@ -1,8 +1,8 @@
 package com.restaurantsProject.project.services.foodService;
 
 import com.restaurantsProject.project.entities.Food;
+import com.restaurantsProject.project.entities.Restaurant;
 import com.restaurantsProject.project.repositories.FoodRepository;
-import com.restaurantsProject.project.services.foodService.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,15 @@ public class FoodServiceImpl implements FoodService {
     public Food createFood(Food food) {
         Food createdFood = foodRepository.save(food);
 
+
         return createdFood;
+    }
+
+    @Override
+    public List<Food> getFoodsByRestaurant(Restaurant restaurant) {
+        List<Food> foodsByRestaurant = foodRepository.findAllByRestaurant(restaurant);
+
+        return foodsByRestaurant;
     }
 
     @Override
@@ -38,6 +46,8 @@ public class FoodServiceImpl implements FoodService {
         Food food = foodRepository.findFoodById(id);
         return food;
     }
+
+
 
     @Override
     public List<Food> getAllFoods() {

@@ -1,5 +1,6 @@
 package com.restaurantsProject.project.services.restaurantService;
 
+import com.restaurantsProject.project.exceptions.AlreadyExistException;
 import com.restaurantsProject.project.entities.Restaurant;
 import com.restaurantsProject.project.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public Restaurant createRestaurant(Restaurant restaurant) {
+        if (restaurantRepository.findRestaurantByName(restaurant.getName())!=null)
+            throw new AlreadyExistException("Restaurant with this name already exists");
+
         Restaurant createdRestaurant = restaurantRepository.save(restaurant);
 
         return createdRestaurant;
@@ -39,6 +43,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void deleteRestaurant(long id) {
         restaurantRepository.deleteRestaurantById(id);
     }
+
 
     @Override
     public Restaurant getRestaurant(long id) {
