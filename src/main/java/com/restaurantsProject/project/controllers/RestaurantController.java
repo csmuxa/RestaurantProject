@@ -50,6 +50,12 @@ public class RestaurantController {
 
     }
 
+    @PutMapping("{id}")
+    public Restaurant updateRestaurant(@PathVariable("id") long id,@RequestBody Restaurant restaurant){
+        Restaurant updatingRestaurant= restaurantService.updateRestaurant(id,restaurant);
+        return updatingRestaurant;
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteRestaurant(@PathVariable("id") long id) {
@@ -58,14 +64,14 @@ public class RestaurantController {
         return ResponseEntity.status(HttpStatus.OK).body("Deleted successfully");
     }
 
-    @GetMapping("/{kitchenType}")
+    @GetMapping("/kitchenType/{kitchenType}")
     public List<Restaurant> getAllRestaurantByKitchenType(@PathVariable("kitchenType") String kitchenType) {
         List<Restaurant> allRestaurantByKitchenType = restaurantService.getAllRestaurantsByKitchenType(kitchenType);
         return allRestaurantByKitchenType;
     }
 
 
-    @GetMapping("/{priceLevel}")
+    @GetMapping("/priceLevel/{priceLevel}")
     public List<Restaurant> getAllRestaurantByPriceLevel(@PathVariable("priceLevel") int priceLevel) {
         List<Restaurant> allRestaurantByPriceLevel = restaurantService.getAllRestaurantsByPriceLevel(priceLevel);
         return allRestaurantByPriceLevel;

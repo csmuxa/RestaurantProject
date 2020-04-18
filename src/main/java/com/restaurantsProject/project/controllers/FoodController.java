@@ -17,6 +17,14 @@ public class FoodController {
     @Autowired
     FoodService foodService;
 
+
+    @GetMapping
+    public List<Food> getAllFoods() {
+        List<Food> allFoods = foodService.getAllFoods();
+
+        return allFoods;
+    }
+
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public Food createFood(@RequestBody Food food) {
@@ -32,6 +40,13 @@ public class FoodController {
         Food food = foodService.getFood(id);
 
         return food;
+    }
+
+    @PutMapping("{id}")
+    public Food updateFood(@PathVariable("id") long id, @RequestBody Food food) {
+        Food updatingFood = foodService.updateFood(id, food);
+
+        return updatingFood;
     }
 
     @DeleteMapping("/{id}")

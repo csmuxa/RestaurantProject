@@ -1,7 +1,6 @@
 package com.restaurantsProject.project.exceptions.handler;
 
-import com.restaurantsProject.project.exceptions.AlreadyExistException;
-import com.restaurantsProject.project.exceptions.DataNotFoundException;
+import com.restaurantsProject.project.exceptions.*;
 import com.restaurantsProject.project.models.ErrorMesageModel.ExceptionMessage;
 import com.restaurantsProject.project.models.ErrorMesageModel.ExceptionMessages;
 import org.springframework.http.HttpStatus;
@@ -19,28 +18,28 @@ public class ExceptionHandlerClass extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(new ExceptionMessage(ExceptionMessages.RECORD_ALREADY_EXISTS.getErrorMessage(),new Date()), HttpStatus.ALREADY_REPORTED);
     }
 
-    @ExceptionHandler(DataNotFoundException.class)
+    @ExceptionHandler(AuthenticationFailedException.class)
     protected ResponseEntity<ExceptionMessage> handleAuthenticationFailedException(){
 
         return new ResponseEntity<>(new ExceptionMessage(ExceptionMessages.AUTHENTICATION_FAILED.getErrorMessage(),new Date()), HttpStatus.NOT_FOUND);
 
     }
 
-    @ExceptionHandler(DataNotFoundException.class)
+    @ExceptionHandler(CouldNotDeleteDataException.class)
     protected ResponseEntity<ExceptionMessage> handleCouldNotDeleteDataException(){
 
         return new ResponseEntity<>(new ExceptionMessage(ExceptionMessages.COULD_NOT_DELETE_RECORD.getErrorMessage(),new Date()), HttpStatus.NOT_FOUND);
 
     }
 
-    @ExceptionHandler(DataNotFoundException.class)
+    @ExceptionHandler(CouldNotUpdateDataException.class)
     protected ResponseEntity<ExceptionMessage> handleCouldNotUpdateDataException(){
 
         return new ResponseEntity<>(new ExceptionMessage(ExceptionMessages.COULD_NOT_UPDATE_RECORD.getErrorMessage(),new Date()), HttpStatus.NOT_FOUND);
 
     }
 
-    @ExceptionHandler(DataNotFoundException.class)
+    @ExceptionHandler(InternalServerErrorException.class)
     protected ResponseEntity<ExceptionMessage> handleInternalServerErrorException(){
 
         return new ResponseEntity<>(new ExceptionMessage(ExceptionMessages.INTERNAL_SERVER_ERROR.getErrorMessage(),new Date()), HttpStatus.NOT_FOUND);
