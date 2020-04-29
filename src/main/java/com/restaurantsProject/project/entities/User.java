@@ -22,16 +22,17 @@ public class User {
 
 
     @Column(unique = true)
-    private String login;
+    private String username;
 
     @Column
-    private String encryptedPassword;
+    private String password;
 
     @Column
-    private String name;
+    private String firstName;
 
     @Column
-    private String surname;
+    private String lastName;
+
 
 
 

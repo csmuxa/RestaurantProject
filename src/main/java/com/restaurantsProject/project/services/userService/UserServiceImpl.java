@@ -7,7 +7,9 @@ import com.restaurantsProject.project.exceptions.CouldNotUpdateDataException;
 import com.restaurantsProject.project.exceptions.DataNotFoundException;
 import com.restaurantsProject.project.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,6 +18,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
 
     @Override
@@ -37,9 +42,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        User gettingUser = userRepository.findByLogin(user.getLogin());
+        User gettingUser = userRepository.findByUsername(user.
+                getUsername());
         if (gettingUser != null)
             throw new AlreadyExistException();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User creatingUser = userRepository.save(user);
         return creatingUser;
     }
@@ -49,17 +56,18 @@ public class UserServiceImpl implements UserService {
         User updatingUser = userRepository.findById(id);
         if (updatingUser == null)
             throw new CouldNotUpdateDataException();
-        updatingUser.setName(user.getName());
-        updatingUser.setSurname(user.getSurname());
+        updatingUser.setFirstName(user.getFirstName());
+        updatingUser.setLastName(user.getLastName());
         User returningUser = userRepository.save(updatingUser);
         return returningUser;
     }
 
     @Override
+    @Transactional
     public void deleteUser(long id) {
         User deletingUser = userRepository.findById(id);
         if (deletingUser == null)
             throw new CouldNotDeleteDataException();
-        userRepository.delete(deletingUser);
+        userRepository.deleteById(id);
     }
 }

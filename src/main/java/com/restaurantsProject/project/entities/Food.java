@@ -34,7 +34,7 @@ public class Food {
     private String ingredients;
 
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id",nullable = false)
     @JsonBackReference
     private Restaurant restaurant;

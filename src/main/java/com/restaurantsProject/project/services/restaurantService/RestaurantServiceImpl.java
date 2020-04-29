@@ -8,6 +8,7 @@ import com.restaurantsProject.project.exceptions.DataNotFoundException;
 import com.restaurantsProject.project.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -45,12 +46,13 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @Transactional
     public void deleteRestaurant(long id) {
         Restaurant deletingRestaurant= restaurantRepository.findRestaurantById(id);
         if (deletingRestaurant==null)
             throw new CouldNotDeleteDataException();
 
-        restaurantRepository.delete(deletingRestaurant);
+        restaurantRepository.deleteRestaurantById(id);
     }
 
 

@@ -9,6 +9,7 @@ import com.restaurantsProject.project.repositories.FoodRepository;
 import com.restaurantsProject.project.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -56,6 +57,7 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
+    @Transactional
     public void deleteFood(long id) {
         Food deletingFood = foodRepository.findFoodById(id);
         if (deletingFood == null)
