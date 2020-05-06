@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
+import lombok.var;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,7 +31,6 @@ public class JWTUsernamePasswordFilter extends UsernamePasswordAuthenticationFil
     private final JWTConfig jwtConfig;
 
 
-
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try {
@@ -54,17 +54,19 @@ public class JWTUsernamePasswordFilter extends UsernamePasswordAuthenticationFil
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication auth) throws IOException, ServletException {
 
+        User user = (User) auth.getPrincipal();
         String username = ((User) auth.getPrincipal()).getUsername();
 
         String token = Jwts.builder()
                 .setSubject(username)
+                .claim("authorities", auth.getAuthorities())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(jwtConfig.getTokenExpirationAfterDays())))
                 .setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256 , jwtConfig.getSecretKey())
+                .signWith(SignatureAlgorithm.HS256, jwtConfig.getSecretKey())
                 .compact();
 
 
-        response.setHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + " " +token);
+        response.setHeader(jwtConfig.getAuthorizationHeader(), jwtConfig.getTokenPrefix() + " " + token);
 
     }
 }

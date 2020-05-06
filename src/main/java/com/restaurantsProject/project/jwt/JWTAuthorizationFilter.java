@@ -5,8 +5,10 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
+import lombok.var;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -16,6 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @AllArgsConstructor
@@ -45,13 +51,17 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
             Claims body = claimsJws.getBody();
 
-            String username = body.get("username",String.class);
+            String username = body.getSubject();
+
+            List<Map<String,String>> authorities = (List<Map<String,String>>)body.get("authorities");
+
+            Set<SimpleGrantedAuthority> simpleGrantedAuthorities = authorities.stream().map(authority -> new SimpleGrantedAuthority(authority.get("authority"))).collect(Collectors.toSet());
 
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     username,
                     null,
-                    new ArrayList<>()
+                    simpleGrantedAuthorities
             );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
