@@ -1,14 +1,12 @@
 package com.restaurantsProject.project.repositories;
 
 import com.restaurantsProject.project.entities.Food;
-import com.restaurantsProject.project.entities.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface FoodRepository extends JpaRepository<Food, Long> {
 
-    List<Food> findAllByRestaurant(Restaurant restaurant);
 
     List<Food> findAllByType(String type);
 

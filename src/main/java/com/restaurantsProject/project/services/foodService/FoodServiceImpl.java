@@ -31,15 +31,6 @@ public class FoodServiceImpl implements FoodService {
         return createdFood;
     }
 
-    @Override
-    public List<Food> getFoodsByRestaurant(Restaurant restaurant) {
-        Restaurant gettingRestaurant = restaurantRepository.findRestaurantById(restaurant.getId());
-        if (gettingRestaurant == null)
-            throw new DataNotFoundException();
-        List<Food> foodsByRestaurant = foodRepository.findAllByRestaurant(restaurant);
-
-        return foodsByRestaurant;
-    }
 
     @Override
     public Food updateFood(long id, Food food) {

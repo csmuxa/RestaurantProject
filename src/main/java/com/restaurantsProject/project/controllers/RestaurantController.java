@@ -76,11 +76,4 @@ public class RestaurantController {
         List<Restaurant> allRestaurantByPriceLevel = restaurantService.getAllRestaurantsByPriceLevel(priceLevel);
         return allRestaurantByPriceLevel;
     }
-
-    @GetMapping("{id}/foods")
-    public List<Food> getFoodsByRestaurant(@PathVariable("id") long id) {
-        Restaurant restaurant = restaurantService.getRestaurant(id);
-        List<Food> foodsByRestaurant = foodService.getFoodsByRestaurant(restaurant);
-        return foodsByRestaurant;
-    }
 }

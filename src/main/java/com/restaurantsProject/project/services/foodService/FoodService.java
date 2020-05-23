@@ -13,7 +13,6 @@ public interface FoodService {
 
     Food createFood(Food food);
 
-    List<Food> getFoodsByRestaurant(Restaurant restaurant);
 
     Food updateFood(long id,Food food);
 
