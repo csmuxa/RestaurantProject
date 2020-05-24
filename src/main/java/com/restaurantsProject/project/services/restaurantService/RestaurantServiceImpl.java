@@ -1,11 +1,11 @@
 package com.restaurantsProject.project.services.restaurantService;
 
+import com.restaurantsProject.project.dao.restaurantDao.RestaurantDAO;
 import com.restaurantsProject.project.exceptions.AlreadyExistException;
 import com.restaurantsProject.project.entities.Restaurant;
 import com.restaurantsProject.project.exceptions.CouldNotDeleteDataException;
 import com.restaurantsProject.project.exceptions.CouldNotUpdateDataException;
 import com.restaurantsProject.project.exceptions.DataNotFoundException;
-import com.restaurantsProject.project.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +16,7 @@ import java.util.List;
 public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
-    RestaurantRepository restaurantRepository;
+    RestaurantDAO restaurantRepository;
 
     @Override
     public Restaurant createRestaurant(Restaurant restaurant) {
@@ -68,9 +68,13 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public List<Restaurant> getAllRestaurants() {
+        /*
         List<Restaurant> allRestaurants = restaurantRepository.findAll();
 
         return allRestaurants;
+
+         */
+        return null;
     }
 
     @Override

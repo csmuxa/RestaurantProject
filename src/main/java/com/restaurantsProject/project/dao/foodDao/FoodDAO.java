@@ -1,12 +1,12 @@
-package com.restaurantsProject.project.repositories;
+package com.restaurantsProject.project.dao.foodDao;
 
 import com.restaurantsProject.project.entities.Food;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface FoodRepository extends JpaRepository<Food, Long> {
+public interface FoodDAO {
 
+    Food save(Food food);
 
     List<Food> findAllByType(String type);
 
@@ -15,8 +15,4 @@ public interface FoodRepository extends JpaRepository<Food, Long> {
     void deleteFoodById(long id);
 
     List<Food> findAllByPriceBetween(double lower,double higher);
-
-
-
-
 }

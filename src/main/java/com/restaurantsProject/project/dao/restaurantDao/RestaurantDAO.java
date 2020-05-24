@@ -1,11 +1,12 @@
-package com.restaurantsProject.project.repositories;
+package com.restaurantsProject.project.dao.restaurantDao;
 
 import com.restaurantsProject.project.entities.Restaurant;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface RestaurantRepository extends JpaRepository<Restaurant,Long> {
+public interface RestaurantDAO {
+
+    Restaurant save(Restaurant restaurant);
 
     Restaurant findRestaurantByName(String name);
 
@@ -16,8 +17,4 @@ public interface RestaurantRepository extends JpaRepository<Restaurant,Long> {
     List<Restaurant> findAllByPriceLevel(int level);
 
     void deleteRestaurantById(long id);
-
-
-
-
 }

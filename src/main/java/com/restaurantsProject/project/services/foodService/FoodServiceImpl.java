@@ -1,12 +1,11 @@
 package com.restaurantsProject.project.services.foodService;
 
+import com.restaurantsProject.project.dao.foodDao.FoodDAO;
+import com.restaurantsProject.project.dao.restaurantDao.RestaurantDAO;
 import com.restaurantsProject.project.entities.Food;
-import com.restaurantsProject.project.entities.Restaurant;
 import com.restaurantsProject.project.exceptions.CouldNotDeleteDataException;
 import com.restaurantsProject.project.exceptions.CouldNotUpdateDataException;
 import com.restaurantsProject.project.exceptions.DataNotFoundException;
-import com.restaurantsProject.project.repositories.FoodRepository;
-import com.restaurantsProject.project.repositories.RestaurantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,10 +16,10 @@ import java.util.List;
 public class FoodServiceImpl implements FoodService {
 
     @Autowired
-    FoodRepository foodRepository;
+    FoodDAO foodRepository;
 
     @Autowired
-    RestaurantRepository restaurantRepository;
+    RestaurantDAO restaurantRepository;
 
 
     @Override
@@ -68,9 +67,10 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public List<Food> getAllFoods() {
-        List<Food> allFoods = foodRepository.findAll();
+       /* List<Food> allFoods = foodRepository.findAll();
 
-        return allFoods;
+        return allFoods; */
+       return null;
     }
 
     @Override
