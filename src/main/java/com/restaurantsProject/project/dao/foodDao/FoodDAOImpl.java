@@ -15,6 +15,9 @@ import java.util.List;
 @Repository
 public class FoodDAOImpl implements FoodDAO {
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
 
    /* @Autowired
     public FoodDAOImpl(EntityManagerFactory factory) {
@@ -27,7 +30,7 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public Food save(Food food) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.save(food);
         System.out.println("Inserted Successfully");

@@ -1,6 +1,7 @@
 package com.restaurantsProject.project.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,11 @@ public class Food {
 
     @Column
     private String ingredients;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id",nullable = false)
+    @JsonBackReference
+    private Restaurant restaurant;
 
 
 }

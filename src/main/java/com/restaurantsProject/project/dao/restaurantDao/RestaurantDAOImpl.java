@@ -13,9 +13,12 @@ import java.util.List;
 @Repository
 public class RestaurantDAOImpl implements RestaurantDAO {
 
+    @Autowired
+    private SessionFactory sessionFactory;
+
     @Override
     public Restaurant save(Restaurant restaurant) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
         session.save(restaurant);
         System.out.println("Inserted Successfully");

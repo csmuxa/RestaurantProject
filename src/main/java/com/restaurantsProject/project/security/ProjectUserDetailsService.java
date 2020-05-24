@@ -1,7 +1,7 @@
 package com.restaurantsProject.project.security;
 
 
-import com.restaurantsProject.project.repositories.UserRepository;
+import com.restaurantsProject.project.dao.userDAO.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,7 +19,7 @@ public class ProjectUserDetailsService implements UserDetailsService {
 
 
     @Autowired
-    UserRepository userRepository;
+    UserDAO userRepository;
 
 
     @Override

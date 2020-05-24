@@ -29,9 +29,9 @@ public class FoodController {
             consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public Food createFood(@RequestBody Food food) {
 
-        Food creatingFood = foodService.createFood(food);
+        foodService.createFood(food);
 
-        return creatingFood;
+        return food;
     }
 
 

@@ -38,8 +38,8 @@ public class Restaurant {
     @Column
     private String phone;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "restaurant_id")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Food> menu;
 
 
