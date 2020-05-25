@@ -47,7 +47,6 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    @Transactional
     public void deleteFood(long id) {
         Food deletingFood = foodRepository.findFoodById(id);
         if (deletingFood == null)
@@ -67,10 +66,10 @@ public class FoodServiceImpl implements FoodService {
 
     @Override
     public List<Food> getAllFoods() {
-       /* List<Food> allFoods = foodRepository.findAll();
+        List<Food> allFoods = foodRepository.findAll();
 
-        return allFoods; */
-       return null;
+        return allFoods;
+
     }
 
     @Override

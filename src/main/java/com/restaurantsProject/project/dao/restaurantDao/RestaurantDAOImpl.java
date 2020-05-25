@@ -1,13 +1,11 @@
 package com.restaurantsProject.project.dao.restaurantDao;
 
 import com.restaurantsProject.project.entities.Restaurant;
-import com.restaurantsProject.project.hibernateConfigurations.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 @Repository
@@ -18,13 +16,19 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
     @Override
     public Restaurant save(Restaurant restaurant) {
+
         Session session = sessionFactory.getCurrentSession();
-        session.beginTransaction();
         session.save(restaurant);
         System.out.println("Inserted Successfully");
-        session.getTransaction().commit();
-        session.close();
         return restaurant;
+    }
+
+    @Override
+    public List<Restaurant> findAll() {
+
+        Session session = sessionFactory.getCurrentSession();
+        List<Restaurant> restaurants = session.createQuery("From Restaurant", Restaurant.class).list();
+        return restaurants;
     }
 
     @Override
@@ -34,7 +38,10 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
     @Override
     public Restaurant findRestaurantById(long id) {
-        return null;
+
+        Session session = sessionFactory.getCurrentSession();
+        Restaurant restaurant = session.get(Restaurant.class, id);
+        return restaurant;
     }
 
     @Override
@@ -49,6 +56,10 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
     @Override
     public void deleteRestaurantById(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Restaurant restaurant = session.get(Restaurant.class, id);
+        session.delete(restaurant);
+        System.out.println("Deleted successfully");
 
     }
 }

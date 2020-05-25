@@ -19,6 +19,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     RestaurantDAO restaurantRepository;
 
     @Override
+    @Transactional
     public Restaurant createRestaurant(Restaurant restaurant) {
         if (restaurantRepository.findRestaurantByName(restaurant.getName()) != null)
             throw new AlreadyExistException();
@@ -29,6 +30,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @Transactional
     public Restaurant updateRestaurant(long id, Restaurant restaurant) {
         Restaurant updatingRestaurant = restaurantRepository.findRestaurantById(id);
         if (updatingRestaurant == null)
@@ -57,6 +59,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
+    @Transactional
     public Restaurant getRestaurant(long id) {
         Restaurant restaurant = restaurantRepository.findRestaurantById(id);
 
@@ -67,17 +70,16 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @Transactional
     public List<Restaurant> getAllRestaurants() {
-        /*
-        List<Restaurant> allRestaurants = restaurantRepository.findAll();
 
+        List<Restaurant> allRestaurants = restaurantRepository.findAll();
         return allRestaurants;
 
-         */
-        return null;
     }
 
     @Override
+    @Transactional
     public List<Restaurant> getAllRestaurantsByKitchenType(String type) {
         List<Restaurant> allRestaurantsByKitchenType = restaurantRepository.findAllByKitchenType(type);
 
@@ -85,6 +87,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
+    @Transactional
     public List<Restaurant> getAllRestaurantsByPriceLevel(int level) {
         List<Restaurant> allRestaurantsByPriceLevel = restaurantRepository.findAllByPriceLevel(level);
 

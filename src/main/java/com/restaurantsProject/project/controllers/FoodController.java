@@ -34,6 +34,12 @@ public class FoodController {
         return food;
     }
 
+    @GetMapping("byType/{type}")
+    public List<Food> getByType(@PathVariable("type") String type){
+        List<Food> foods = foodService.getFoodsByType(type);
+        return foods;
+    }
+
 
     @GetMapping("{id}")
     public Food getFood(@PathVariable("id") long id) {
