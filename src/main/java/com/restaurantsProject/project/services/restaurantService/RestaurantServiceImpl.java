@@ -19,7 +19,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     RestaurantDAO restaurantRepository;
 
     @Override
-    @Transactional
     public Restaurant createRestaurant(Restaurant restaurant) {
         if (restaurantRepository.findRestaurantByName(restaurant.getName()) != null)
             throw new AlreadyExistException();
@@ -30,28 +29,19 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    @Transactional
     public Restaurant updateRestaurant(long id, Restaurant restaurant) {
         Restaurant updatingRestaurant = restaurantRepository.findRestaurantById(id);
         if (updatingRestaurant == null)
             throw new CouldNotUpdateDataException();
 
-        updatingRestaurant.setName(restaurant.getName());
-        updatingRestaurant.setAddress(restaurant.getAddress());
-        updatingRestaurant.setPhone(restaurant.getPhone());
-        updatingRestaurant.setPriceLevel(restaurant.getPriceLevel());
-        updatingRestaurant.setKitchenType(restaurant.getKitchenType());
-        updatingRestaurant.setMenu(restaurant.getMenu());
-
-        Restaurant returningRestaurant = restaurantRepository.save(updatingRestaurant);
+        Restaurant returningRestaurant = restaurantRepository.update(id, updatingRestaurant);
         return returningRestaurant;
     }
 
     @Override
-    @Transactional
     public void deleteRestaurant(long id) {
-        Restaurant deletingRestaurant= restaurantRepository.findRestaurantById(id);
-        if (deletingRestaurant==null)
+        Restaurant deletingRestaurant = restaurantRepository.findRestaurantById(id);
+        if (deletingRestaurant == null)
             throw new CouldNotDeleteDataException();
 
         restaurantRepository.deleteRestaurantById(id);
@@ -59,18 +49,16 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
-    @Transactional
     public Restaurant getRestaurant(long id) {
         Restaurant restaurant = restaurantRepository.findRestaurantById(id);
 
-        if (restaurant==null)
+        if (restaurant == null)
             throw new DataNotFoundException();
 
         return restaurant;
     }
 
     @Override
-    @Transactional
     public List<Restaurant> getAllRestaurants() {
 
         List<Restaurant> allRestaurants = restaurantRepository.findAll();
@@ -79,7 +67,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    @Transactional
     public List<Restaurant> getAllRestaurantsByKitchenType(String type) {
         List<Restaurant> allRestaurantsByKitchenType = restaurantRepository.findAllByKitchenType(type);
 
@@ -87,7 +74,6 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    @Transactional
     public List<Restaurant> getAllRestaurantsByPriceLevel(int level) {
         List<Restaurant> allRestaurantsByPriceLevel = restaurantRepository.findAllByPriceLevel(level);
 

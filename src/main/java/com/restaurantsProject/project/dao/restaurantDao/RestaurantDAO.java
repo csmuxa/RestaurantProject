@@ -8,6 +8,8 @@ public interface RestaurantDAO {
 
     Restaurant save(Restaurant restaurant);
 
+    Restaurant update(long id,Restaurant restaurant);
+
     List<Restaurant> findAll();
 
     Restaurant findRestaurantByName(String name);

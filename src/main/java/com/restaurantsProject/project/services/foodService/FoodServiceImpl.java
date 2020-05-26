@@ -37,11 +37,7 @@ public class FoodServiceImpl implements FoodService {
         if (updatingFood == null)
             throw new CouldNotUpdateDataException();
 
-        updatingFood.setIngredients(food.getIngredients());
-        updatingFood.setName(food.getName());
-        updatingFood.setPrice(food.getPrice());
-        updatingFood.setType(food.getType());
-        Food returningFood = foodRepository.save(updatingFood);
+        Food returningFood = foodRepository.updateFood(id, food);
 
         return returningFood;
     }

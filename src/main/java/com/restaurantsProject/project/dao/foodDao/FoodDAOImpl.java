@@ -1,15 +1,14 @@
 package com.restaurantsProject.project.dao.foodDao;
 
 import com.restaurantsProject.project.entities.Food;
-import com.restaurantsProject.project.hibernateConfigurations.HibernateUtil;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManagerFactory;
+
 import java.util.List;
 
 
@@ -24,6 +23,7 @@ public class FoodDAOImpl implements FoodDAO {
 
         Session session = sessionFactory.getCurrentSession();
         List<Food> foods = session.createQuery("From Food").list();
+        session.close();
         return foods;
     }
 
@@ -38,9 +38,20 @@ public class FoodDAOImpl implements FoodDAO {
     }
 
     @Override
+    public Food updateFood(long id, Food food) {
+        Session session = sessionFactory.getCurrentSession();
+        Food persistingFood = session.get(Food.class, id);
+        BeanUtils.copyProperties(food,persistingFood);
+        session.update(persistingFood);
+        session.close();
+        return persistingFood;
+    }
+
+    @Override
     public List<Food> findAllByType(String type) {
         Session session = sessionFactory.getCurrentSession();
-        List<Food> byFood = session.createQuery("from Food where type = :type").setParameter("type",type).list();
+        List<Food> byFood = session.createQuery("from Food where type = :type").setParameter("type", type).list();
+        session.close();
         return byFood;
     }
 
@@ -49,6 +60,7 @@ public class FoodDAOImpl implements FoodDAO {
 
         Session session = sessionFactory.getCurrentSession();
         Food food = session.get(Food.class, id);
+        session.close();
         return food;
 
     }
@@ -61,12 +73,14 @@ public class FoodDAOImpl implements FoodDAO {
         Food food = session.get(Food.class, id);
         session.delete(food);
         session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public List<Food> findAllByPriceBetween(double lower, double higher) {
         Session session = sessionFactory.getCurrentSession();
-        List<Food> foods = session.createQuery("from Food where price between :lower and :higher").setParameter("lower",lower).setParameter("higher",higher).list();
+        List<Food> foods = session.createQuery("from Food where price between :lower and :higher").setParameter("lower", lower).setParameter("higher", higher).list();
+        session.close();
         return foods;
     }
 }

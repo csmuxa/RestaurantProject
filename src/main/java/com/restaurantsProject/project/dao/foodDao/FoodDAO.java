@@ -10,6 +10,8 @@ public interface FoodDAO {
 
     Food save(Food food);
 
+    Food updateFood(long id,Food Food);
+
     List<Food> findAllByType(String type);
 
     Food findFoodById(long id);
