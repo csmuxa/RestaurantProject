@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired(required = false)
+    @Autowired
     UserDAO userRepository;
 
     @Autowired
@@ -25,14 +25,10 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    @Transactional
     public List<User> getAllUsers() {
-         /* List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAll();
 
         return users;
-
-          */
-         return null;
     }
 
     @Override
@@ -47,31 +43,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        /*User gettingUser = userRepository.findByUsername(user.
+        User gettingUser = userRepository.findByUsername(user.
                 getUsername());
         if (gettingUser != null)
             throw new AlreadyExistException();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User creatingUser = userRepository.save(user);
         return creatingUser;
-
-         */
-        return null;
     }
 
     @Override
     public User updateUser(long id, User user) {
-        /*
+
         User updatingUser = userRepository.findById(id);
         if (updatingUser == null)
             throw new CouldNotUpdateDataException();
-        updatingUser.setFirstName(user.getFirstName());
-        updatingUser.setLastName(user.getLastName());
-        User returningUser = userRepository.save(updatingUser);
-        return returningUser;
 
-         */
-        return null;
+        User returningUser = userRepository.update(user);
+        return returningUser;
     }
 
     @Override

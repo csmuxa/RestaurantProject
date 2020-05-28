@@ -19,7 +19,6 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
     @Override
     public Restaurant save(Restaurant restaurant) {
-
         Session session = sessionFactory.getCurrentSession();
         session.save(restaurant);
         session.close();
@@ -29,17 +28,17 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
     @Override
     public Restaurant update(long id, Restaurant restaurant) {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
         Restaurant persistingRestaurant = session.get(Restaurant.class,id);
-        BeanUtils.copyProperties(restaurant,persistingRestaurant);
-        session.update(persistingRestaurant);
+        BeanUtils.copyProperties(restaurant,persistingRestaurant,"id");
+        session.getTransaction().commit();
         session.close();
         return persistingRestaurant;
     }
 
     @Override
     public List<Restaurant> findAll() {
-
         Session session = sessionFactory.getCurrentSession();
         List<Restaurant> restaurants = session.createQuery("From Restaurant", Restaurant.class).list();
         session.close();
@@ -72,7 +71,6 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     public List<Restaurant> findAllByKitchenType(String kitchenType) {
         Session session= sessionFactory.getCurrentSession();
         List<Restaurant> restaurants = session.createQuery("from Restaurant r where r.kitchenType = :kitchenType").setParameter("kitchenType",kitchenType).list();
-        session.close();
         return restaurants;
     }
 
@@ -80,17 +78,17 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     public List<Restaurant> findAllByPriceLevel(int level) {
         Session session= sessionFactory.getCurrentSession();
         List<Restaurant> restaurants = session.createQuery("from Restaurant r where r.priceLevel = :level").setParameter("level",level).list();
-        session.close();
         return restaurants;
     }
 
     @Override
     public void deleteRestaurantById(long id) {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
         Restaurant restaurant = session.get(Restaurant.class, id);
         session.delete(restaurant);
+        session.getTransaction().commit();
         session.close();
         System.out.println("Deleted successfully");
-
     }
 }
