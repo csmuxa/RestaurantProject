@@ -1,5 +1,6 @@
 package com.restaurantsProject.project.services.restaurantService;
 
+import com.restaurantsProject.project.entities.Food;
 import com.restaurantsProject.project.exceptions.AlreadyExistException;
 import com.restaurantsProject.project.entities.Restaurant;
 import com.restaurantsProject.project.exceptions.CouldNotDeleteDataException;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -53,6 +55,12 @@ public class RestaurantServiceImpl implements RestaurantService {
             throw new CouldNotDeleteDataException();
 
         restaurantRepository.deleteRestaurantById(id);
+    }
+    @PostConstruct
+    public void initdb(){
+        Restaurant restaurant=new Restaurant();
+        restaurant.setName("basdirmaaa");
+        restaurantRepository.save(restaurant);
     }
 
 

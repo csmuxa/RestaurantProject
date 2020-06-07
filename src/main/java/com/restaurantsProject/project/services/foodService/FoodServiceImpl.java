@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -26,8 +27,6 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public Food createFood(Food food) {
         Food createdFood = foodRepository.save(food);
-
-
         return createdFood;
     }
 
@@ -37,7 +36,6 @@ public class FoodServiceImpl implements FoodService {
         if (gettingRestaurant == null)
             throw new DataNotFoundException();
         List<Food> foodsByRestaurant = foodRepository.findAllByRestaurant(restaurant);
-
         return foodsByRestaurant;
     }
 
@@ -78,14 +76,12 @@ public class FoodServiceImpl implements FoodService {
     @Override
     public List<Food> getAllFoods() {
         List<Food> allFoods = foodRepository.findAll();
-
         return allFoods;
     }
 
     @Override
     public List<Food> getFoodsByType(String type) {
         List<Food> allFoodsByType = foodRepository.findAllByType(type);
-
         return allFoodsByType;
     }
 
